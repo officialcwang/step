@@ -13,19 +13,22 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a quote from The secret History to the page.
  */
-function addRandomGreeting() {
-  const greetings =
+function addRandomQuote() {
+  const quotes =
       ['Kind of a Jean Cocteau touch, isn\'t it?', 'Khairei, deerslayers!', 'Beauty is harsh.',
-      'I\'m late for an appointment.', 'Duty, piety, loyalty, sacrifice.', 'It\'s just such a cowardly thing to have done.'];
+      'I\'m late for an appointment.', 'Duty, piety, loyalty, sacrifice.', 'It\'s just such a cowardly thing to have done.',
+      'That information is classified, I\'m afraid.', 'Oh, well, then.', 'But you\'re not very happy where you are, either.',
+      'If we leave now we can be in Montreal by dark.', 'He\'s your friend. So am I.', 'Are we insane?',
+      'I\'m glad you didn\'t go.', 'Do you feel afraid a lot?', 'Did you do your Greek for today?', 'Just once I\'d like to...'];
 
   // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const quotesContainer = document.getElementById('quotes-container');
+  quotesContainer.innerText = quote;
 }
 
 // Written with help from https://www.w3schools.com/howto/howto_html_include.asp

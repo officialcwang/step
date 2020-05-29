@@ -9,10 +9,14 @@
     font-family: Arial, Helvetica, sans-serif
 }
 
-#greeting-container {
-  margin-top: 20px;
+#quotes-container {
+    margin-top: 20px;
 }
 
 #navigation {
     margin-top: 50px;
+}
+
+#button {
+    margin-top: 20px;
 }
