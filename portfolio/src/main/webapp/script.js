@@ -30,26 +30,25 @@ function addRandomGreeting() {
 
 // Written with help from https://www.w3schools.com/howto/howto_html_include.asp
 function createNavigation() {
-    var total, i, element, file, xhttp;
-    // Loop through a collection of all HTML elements. 
-    total = document.getElementsByTagName("*");
-    for (i = 0; i < total.length; i++) {
-        element = total[i];
+  // Loop through a collection of all HTML elements. 
+  const total = document.getElementsByTagName("*");
+  for (const element of total) {
     // Search for elements with a certain atrribute.
-    file = element.getAttribute("w3-include-html");
+    const file = element.getAttribute("w3-include-html");
+    let xhttp;
     if (file) {
-        // Make an HTTP request using the attribute value as the file name
-        xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {element.innerHTML = this.responseText;}
-            if (this.status == 404) {element.innerHTML = "Page not found.";}
-            // Remove the attribute, and call this function once more
-            element.removeAttribute("w3-include-html");
-            createNavigation();
+      // Make an HTTP request using the attribute value as the file name
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {  
+        if (this.readyState === 4) {
+          if (this.status === 200) {element.innerHTML = this.responseText;}
+          if (this.status === 404) {element.innerHTML = "Page not found.";}
+          // Remove the attribute, and call this function once more
+          element.removeAttribute("w3-include-html");
+          createNavigation();
         }
       }
-      xhttp.open("GET", file, true);
+      xhttp.open("GET", file, /* async = */ true);
       xhttp.send();
       // Exit the function
       return;
