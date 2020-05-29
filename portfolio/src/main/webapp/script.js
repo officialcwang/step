@@ -27,3 +27,31 @@ function addRandomGreeting() {
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
+
+// Written with help from https://www.w3schools.com/howto/howto_html_include.asp
+function createNavigation() {
+  // Loop through a collection of all HTML elements. 
+  const total = document.getElementsByTagName("*");
+  for (const element of total) {
+    // Search for elements with a certain atrribute.
+    const file = element.getAttribute("w3-include-html");
+    let xhttp;
+    if (file) {
+      // Make an HTTP request using the attribute value as the file name
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {  
+        if (this.readyState === 4) {
+          if (this.status === 200) {element.innerHTML = this.responseText;}
+          if (this.status === 404) {element.innerHTML = "Page not found.";}
+          // Remove the attribute, and call this function once more
+          element.removeAttribute("w3-include-html");
+          createNavigation();
+        }
+      }
+      xhttp.open("GET", file, /* async = */ true);
+      xhttp.send();
+      // Exit the function
+      return;
+    }
+  }
+}
