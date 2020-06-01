@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* exported addRandomQuote */
+/* exported randomizeImage */
+/* exported createNavigation */
+
 /**
  * Adds a quote from The secret History to the page.
  */
@@ -26,7 +30,7 @@ function addRandomQuote() {
     'If we leave now we can be in Montreal by dark.',
     'He\'s your friend. So am I.', 'Are we insane?',
     'I\'m glad you didn\'t go.', 'Do you feel afraid a lot?',
-    'Did you do your Greek for today?', 'Just once I\'d like to...'
+    'Did you do your Greek for today?', 'Just once I\'d like to...',
   ];
 
   // Pick a random greeting.
@@ -81,7 +85,7 @@ function createNavigation() {
           element.removeAttribute('w3-include-html');
           createNavigation();
         }
-      } 
+      };
       xhttp.open('GET', file, /* async = */ true);
       xhttp.send();
       // Exit the function
