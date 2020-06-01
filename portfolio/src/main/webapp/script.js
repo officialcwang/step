@@ -21,16 +21,22 @@
  */
 function addRandomQuote() {
   const quotes = [
-    'Kind of a Jean Cocteau touch, isn\'t it?', 'Khairei, deerslayers!',
-    'Beauty is harsh.', 'I\'m late for an appointment.',
+    'Kind of a Jean Cocteau touch, isn\'t it?',
+    'Khairei, deerslayers!',
+    'Beauty is harsh.',
+    'I\'m late for an appointment.',
     'Duty, piety, loyalty, sacrifice.',
     'It\'s just such a cowardly thing to have done.',
-    'That information is classified, I\'m afraid.', 'Oh, well, then.',
+    'That information is classified, I\'m afraid.',
+    'Oh, well, then.',
     'But you\'re not very happy where you are, either.',
     'If we leave now we can be in Montreal by dark.',
-    'He\'s your friend. So am I.', 'Are we insane?',
-    'I\'m glad you didn\'t go.', 'Do you feel afraid a lot?',
-    'Did you do your Greek for today?', 'Just once I\'d like to...',
+    'He\'s your friend. So am I.',
+    'Are we insane?',
+    'I\'m glad you didn\'t go.',
+    'Do you feel afraid a lot?',
+    'Did you do your Greek for today?',
+    'Just once I\'d like to...',
   ];
 
   // Pick a random greeting.
@@ -50,8 +56,9 @@ function randomizeImage() {
   const imageUrl = 'images/cats/cats-' + imageIndex + '.jpg';
 
   const imageElement = document.getElementById('cat-photo');
-  if (imageElement.getAttribute('style') === 'display:none') {
-      imageElement.setAttribute('style', 'display:block'); 
+  imageElement.style.display = 'block';
+  if (imageElement.style.display === 'none') {
+    imageElement.style.display = 'block';
   }
   imageElement.src = imageUrl;
   imageElement.setAttribute('height', '500');

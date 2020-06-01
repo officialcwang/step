@@ -26,5 +26,9 @@
 }
 
 #cat-photo-container {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+#cat-photo {
+    display: none;
 }
