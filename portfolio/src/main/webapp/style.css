@@ -19,12 +19,13 @@
 
 #button {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .photo {
   height: 500px;
 }
 
-#cats-image-container {
-  margin-top: 20px;
+#cat-photo-container {
+    margin-top: 20px;
 }

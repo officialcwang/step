@@ -43,16 +43,11 @@ function addRandomQuote() {
  */
 function randomizeImage() {
   const imageIndex = Math.floor(Math.random() * 18) + 1;
-  const imgUrl = 'images/cats/cats-' + imageIndex + '.jpg';
+  const imageUrl = 'images/cats/cats-' + imageIndex + '.jpg';
 
-  const imgElement = document.createElement('img');
-  imgElement.src = imgUrl;
-  imgElement.setAttribute('height', '500');
-
-  const imageContainer = document.getElementById('cats-image-container');
-  // Remove the previous image.
-  imageContainer.innerHTML = '';
-  imageContainer.appendChild(imgElement);
+  const imageElement = document.getElementById('cat-photo');
+  imageElement.src = imageUrl;
+  imageElement.setAttribute('height', '500');
 }
 
 /**

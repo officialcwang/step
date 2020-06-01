@@ -4,12 +4,16 @@
     <meta charset="UTF-8" />
     <title>The best page</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel"stylesheet" media="(max-width: 10000000px)" href="diff.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div id="content">
       <h1 class="header">:)</h1>
       <button onclick="randomizeImage()">Click for a surprise</button>
-      <div id="cats-image-container"></div>
+      <div id="cat-photo-container">
+        <img src="" id="cat-photo"></img>
+      </div>
       <div w3-include-html="navigation.html">Navigation</div>
     </div>
     <script src="script.js"></script>
