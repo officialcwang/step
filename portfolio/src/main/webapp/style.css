@@ -9,12 +9,16 @@
     transform: translate(-50%, -50%);
 }
 
-#greeting-container {
-  margin-top: 20px;
+#quotes-container {
+    margin-top: 20px;
 }
 
 #navigation {
     margin-top: 50px;
+}
+
+#button {
+    margin-top: 20px;
 }
 
 .photo {
