@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Quote</title>
-    <link rel="stylesheet" href="style.css">
-  </head> 
+    <link rel="stylesheet" href="style.css" />
+  </head>
   <body>
-    <div id = "content">
+    <div id="content">
       <h1 class="header">The Secret History</h1>
       <h3 class="subheader">by Donna Tartt (1992)</h3>
-      <p class="prompt">Want a cryptic quote from the Secret History?</p> 
-      <img src="/images/tsh.jpeg" alt = "the-secret-history" class="photo">
+      <p class="prompt">Want a cryptic quote from the Secret History?</p>
+      <img src="/images/tsh.jpeg" alt="the-secret-history" class="photo" />
       <div id="button">
-        <button onclick="addRandomQuote()">Hmm...</button>
+        <button type="button" onclick="addRandomQuote()">Hmm...</button>
       </div>
       <div id="quotes-container"></div>
-      <div w3-include-HTML="navigation.html">Navigation</div>
+      <div w3-include-html="navigation.html"></div>
     </div>
     <script src="script.js"></script>
-    <script> createNavigation() </script>
+    <script>
+      createNavigation()
+    </script>
   </body>
 </html>

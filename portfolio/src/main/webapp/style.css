@@ -1,26 +1,34 @@
 #content {
-    font-family: Arial, Helvetica, sans-serif;
-    left: 50%;
-    margin: 0;
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  font-family: Arial, Helvetica, sans-serif;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #quotes-container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 #navigation {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 #button {
-    margin-top: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .photo {
-    height: 500px;
+  height: 500px;
+}
+
+#cat-photo-container {
+  margin-top: 20px;
+}
+
+#cat-photo {
+  display: none;
 }
