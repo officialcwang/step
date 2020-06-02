@@ -8,6 +8,18 @@
   transform: translate(-50%, -50%);
 }
 
+/*
+ * TODO(carolynlwang): Come up with more flexible numbers.
+*/
+@media (max-height: 2000px) {
+  #content {
+    bottom: 40px;
+  }
+  #navigation {
+    padding-bottom: 40px;
+  }
+}
+
 #quotes-container {
   margin-top: 20px;
 }
