@@ -15,9 +15,19 @@
 /* exported addRandomQuote */
 /* exported randomizeImage */
 /* exported createNavigation */
+/* exported addHello */
 
 /**
- * Adds a quote from The secret History to the page.
+ * Fetches hello from the server and adds it to the page.
+ */
+async function addHello() {
+  const response = await fetch('/data');
+  const hello = await response.text();
+  document.getElementById('hello-container').innerHTML = hello;
+}
+
+/**
+ * Adds a quote from The Secret History to the page.
  */
 function addRandomQuote() {
   const quotes = [
