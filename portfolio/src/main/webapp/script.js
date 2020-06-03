@@ -21,9 +21,9 @@
  * Fetches hello from the server and adds it to the page.
  */
 async function addHello() {
-  const response = await fetch('/data');
-  const hello = await response.text();
-  document.getElementById('hello-container').innerHTML = hello;
+  fetch('/data').then((response) => response.json()).then((hello) => {
+    document.getElementById('hello-container').innerText = hello;
+  });
 }
 
 /**
