@@ -21,9 +21,20 @@
  * Fetches hello from the server and adds it to the page.
  */
 async function addHello() {
-  const response = await fetch('/data');
-  const hello = await response.text();
-  document.getElementById('hello-container').innerHTML = hello;
+  fetch('/data').then((response) => response.json()).then((greetings) => {
+    const greetingListElement = document.getElementById('hello-container');
+    greetingListElement.innerHTML = '';
+    for (const message of greetings) {
+      greetingListElement.appendChild(createListElement(message));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
 }
 
 /**
