@@ -24,9 +24,7 @@ async function addHello() {
   fetch('/data').then((response) => response.json()).then((greetings) => {
     const greetingListElement = document.getElementById('hello-container');
     greetingListElement.innerHTML = '';
-    console.log(greetings);
     for (const message of greetings) {
-      console.log(message);
       greetingListElement.appendChild(createListElement(message));
     }
   });
