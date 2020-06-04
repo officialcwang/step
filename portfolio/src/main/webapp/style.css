@@ -8,6 +8,10 @@
   transform: translate(-50%, -50%);
 }
 
+li:not(:last-child) {
+  margin-bottom: 5px;
+}
+
 /*
  * TODO(carolynlwang): Come up with more flexible numbers.
  */
@@ -35,6 +39,10 @@
 
 .photo {
   height: 500px;
+}
+
+#comment-header {
+  display: none;
 }
 
 #cat-photo-container {

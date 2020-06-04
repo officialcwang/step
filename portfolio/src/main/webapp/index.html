@@ -5,15 +5,23 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
+  <body onload="addComment()">
     <div id="content">
       <h1 class="header">Portfolio</h1>
       <p class="description">This is Carolyn Wang.</p>
       <img src="/images/3d.jpeg" alt="3d-glasses" class="photo" />
-      <div class="button">
-        <button type="button" onclick="addHello()">Say hello</button>
+      <form action="/data" method="post">
+        <p>Enter a comment:</p>
+        <textarea name="text-input"></textarea>
+        <br />
+        <div class="button">
+          <button type="submit">Say hello</button>
+        </div>
+      </form>
+      <div id="comment-header">
+        <p>You have said:</p>
       </div>
-      <div id="hello-container"></div>
+      <div id="comments-container"></div>
       <div w3-include-html="navigation.html"></div>
     </div>
     <script src="script.js"></script>
