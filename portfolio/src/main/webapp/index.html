@@ -10,9 +10,9 @@
       <h1 class="header">Portfolio</h1>
       <p class="description">This is Carolyn Wang.</p>
       <img src="/images/3d.jpeg" alt="3d-glasses" class="photo" />
-      <form action="/data" method="post">
+      <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
         <p>Enter a comment:</p>
-        <textarea name="text-input"></textarea>
+        <textarea name="text-input" id="text-input"></textarea>
         <br />
         <div class="button">
           <button type="submit">Say hello</button>

@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/* exported addComment */
+/* exported isInputEmpty */
 /* exported addRandomQuote */
 /* exported randomizeImage */
 /* exported createNavigation */
-/* exported addComment */
 
 /**
  * Fetches comments from the server and adds them to the page.
@@ -44,6 +45,16 @@ function createListElement(text) {
   const liElement = document.createElement('li');
   liElement.innerText = text;
   return liElement;
+}
+
+/** Checks if the user has inputted any text upon clicking submit. */
+function isInputEmpty() {
+  const comment = document.getElementById('text-input').value;
+  if (comment == null || comment === '') {
+    alert('Please enter a valid comment.');
+    return false;
+  }
+  return true;
 }
 
 /**
