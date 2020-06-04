@@ -14,10 +14,14 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,38 +41,36 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * Retrieve inputted comments and redirect the result to the page.
+   * Retrieve and store inputted comments and redirect the result to the page.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
+    Optional<String> textOptional = getParameter(request, "text-input");
+    String text = textOptional.orElse("");
 
     // Respond with the result.
     String json = gson.toJson(text);
     comments.add(json);
 
+    // Store the comment.
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
     // Redirect back to the proper container.
     response.setContentType("text/html;");
     response.getWriter().println(json);
     response.sendRedirect("/index.html");
-
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", text);
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
   }
 
   /**
    * @return the request parameter, or the default value if the parameter
    *         was not specified by the client
    */
-  Optional String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
+   private Optional<String> getParameter(HttpServletRequest request, String name) {
+    Optional<String> result = Optional.ofNullable(request.getParameter(name));
+    return result;
   }
 }
