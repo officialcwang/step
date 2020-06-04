@@ -69,7 +69,7 @@ public class DataServlet extends HttpServlet {
    * @return the request parameter, or the default value if the parameter
    *         was not specified by the client
    */
-   private Optional<String> getParameter(HttpServletRequest request, String name) {
+  private Optional<String> getParameter(HttpServletRequest request, String name) {
     Optional<String> result = Optional.ofNullable(request.getParameter(name));
     return result;
   }
