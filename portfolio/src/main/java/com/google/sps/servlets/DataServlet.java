@@ -34,18 +34,20 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
+  private static final String COMMENT = "Comment"
+  private static final String TEXT = "text"
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query(COMMENT);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String text = (String) entity.getProperty("text");
-      comments.add(text);
+      String output = (String) entity.getProperty(TEXT);
+      comments.add(output);
     }
 
     String json = gson.toJson(comments);
@@ -60,15 +62,15 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the input from the form.
     Optional<String> textOptional = getParameter(request, "text-input");
-    String text = textOptional.orElse("");
+    String input = textOptional.orElse("");
 
     // Respond with the result.
-    String json = gson.toJson(text);
+    String json = gson.toJson(input);
     comments.add(json);
 
     // Store the comment.
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", text);
+    Entity commentEntity = new Entity(COMMENT);
+    commentEntity.setProperty(TEXT, input);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
@@ -83,7 +85,6 @@ public class DataServlet extends HttpServlet {
    *         was not specified by the client
    */
   private Optional<String> getParameter(HttpServletRequest request, String name) {
-    Optional<String> result = Optional.ofNullable(request.getParameter(name));
-    return result;
+    return Optional.ofNullable(request.getParameter(name));
   }
 }
