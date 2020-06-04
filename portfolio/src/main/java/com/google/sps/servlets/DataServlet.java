@@ -34,8 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
-  private static final String COMMENT = "Comment"
-  private static final String TEXT = "text"
+  private static final String COMMENT = "Comment";
+  private static final String TEXT = "text";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
