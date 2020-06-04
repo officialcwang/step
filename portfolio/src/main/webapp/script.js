@@ -18,7 +18,7 @@
 /* exported addComment */
 
 /**
- * Fetches hello from the server and adds it to the page.
+ * Fetches comments from the server and adds them to the page.
  */
 async function addComment() {
   fetch('/data').then((response) => response.json()).then((comments) => {
