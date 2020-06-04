@@ -15,17 +15,26 @@
 /* exported addRandomQuote */
 /* exported randomizeImage */
 /* exported createNavigation */
-/* exported addHello */
+/* exported addComment */
 
 /**
  * Fetches hello from the server and adds it to the page.
  */
-async function addHello() {
-  fetch('/data').then((response) => response.json()).then((greetings) => {
-    const greetingListElement = document.getElementById('hello-container');
-    greetingListElement.innerHTML = '';
-    for (const message of greetings) {
-      greetingListElement.appendChild(createListElement(message));
+async function addComment() {
+  fetch('/data').then((response) => response.json()).then((comments) => {
+    const commentHeader = document.getElementById('comment-header');
+
+    // Check if there are comments.
+    if (comments.length > 0) {
+      // Make the header of the comments section visible.
+      commentHeader.style.display = 'block';
+    }
+
+    // Create a list of comments.
+    const commentListElement = document.getElementById('comments-container');
+    commentListElement.innerHTML = '';
+    for (const message of comments) {
+      commentListElement.appendChild(createListElement(message));
     }
   });
 }
@@ -77,7 +86,6 @@ function randomizeImage() {
   const imageUrl = 'images/cats/cats-' + imageIndex + '.jpg';
 
   const imageElement = document.getElementById('cat-photo');
-  imageElement.style.display = 'block';
   if (imageElement.style.display === 'none') {
     imageElement.style.display = 'block';
   }

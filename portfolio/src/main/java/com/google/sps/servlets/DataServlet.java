@@ -26,21 +26,40 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private List<String> greetings;
-
-  @Override
-  public void init() {
-    greetings = new ArrayList<>();
-    greetings.add("Hello, Carolyn!");
-    greetings.add("Khairei, Carolyn!");
-    greetings.add("Privyet, Carolyn!");
-  }
+  private List<String> comments = new ArrayList<>();
+  private Gson gson = new Gson();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    String json = gson.toJson(greetings);
+    String json = gson.toJson(comments);
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
-}
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "text-input", "");
+
+    // Respond with the result.
+    String json = gson.toJson(text);
+    comments.add(json);
+
+    // Redirect back to the proper container.
+    response.setContentType("text/html;");
+    response.getWriter().println(json);
+    response.sendRedirect("/index.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
+} 
