@@ -13,6 +13,8 @@
       <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
         <p>Enter a comment:</p>
         <textarea name="text-input" id="text-input"></textarea>
+        <p>Number of comments</p>
+        <input type="number" name="comments-number" id="comments-number" min="1" max="50" value="5" />
         <br />
         <div class="button">
           <button type="submit">Say hello</button>
