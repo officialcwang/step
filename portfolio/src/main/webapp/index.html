@@ -13,11 +13,20 @@
       <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
         <p>Enter a comment:</p>
         <textarea name="text-input" id="text-input"></textarea>
-        <p>Number of comments</p>
-        <input type="number" name="comments-number" id="comments-number" min="1" max="50" value="5" />
         <br />
         <div class="button">
           <button type="submit">Say hello</button>
+        </div>
+        <div id="select-comments">
+          View 
+          <select name="comments-number" id="comments-number">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+          of all 
+          <div id="total-comments-text"></div>
+           comments.
         </div>
       </form>
       <div id="comment-header">

@@ -52,3 +52,11 @@ li:not(:last-child) {
 #cat-photo {
   display: none;
 }
+
+#select-comments {
+    margin-top: 10px;
+}
+
+#total-comments-text {
+    display: inline-block;
+}

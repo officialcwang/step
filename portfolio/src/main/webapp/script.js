@@ -23,17 +23,18 @@
  */
 async function addComment() {
   const numComments = document.getElementById('comments-number').value;
-  console.log(numComments);
   fetch('/data?comments-number=' + numComments)
       .then((response) => response.json())
       .then((comments) => {
         const commentHeader = document.getElementById('comment-header');
+        const totalCommentsText = document.getElementById('total-comments-text');
 
         // Check if there are comments.
         if (comments.length > 0) {
           // Make the header of the comments section visible.
           commentHeader.style.display = 'block';
         }
+        totalCommentsText.innerText = numComments;
 
         // Create a list of comments.
         const commentListElement =
