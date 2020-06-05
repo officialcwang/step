@@ -19,9 +19,11 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
@@ -36,16 +38,22 @@ public class DataServlet extends HttpServlet {
   private Gson gson = new Gson();
   private static final String COMMENT = "Comment";
   private static final String TEXT = "text";
+  private static final String TIMESTAMP = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT);
+    Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    int numComments = getNumberOfComments(request, "comments-number");
 
     comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    Iterator commentsIterator = results.asIterator();
+
+    // Accept either all comments or as many as specified in numComments.
+    for (int i = 0; i < numComments && commentsIterator.hasNext(); i++) {
+      Entity entity = (Entity) commentsIterator.next();
       String output = (String) entity.getProperty(TEXT);
       comments.add(output);
     }
@@ -63,6 +71,7 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     Optional<String> textOptional = getParameter(request, "text-input");
     String input = textOptional.orElse("");
+    long timestamp = System.currentTimeMillis();
 
     // Respond with the result.
     String json = gson.toJson(input);
@@ -71,6 +80,7 @@ public class DataServlet extends HttpServlet {
     // Store the comment.
     Entity commentEntity = new Entity(COMMENT);
     commentEntity.setProperty(TEXT, input);
+    commentEntity.setProperty(TIMESTAMP, timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
@@ -86,5 +96,22 @@ public class DataServlet extends HttpServlet {
    */
   private Optional<String> getParameter(HttpServletRequest request, String name) {
     return Optional.ofNullable(request.getParameter(name));
+  }
+
+  /** Returns the choice entered by the player, or -1 if the choice was invalid. */
+  private int getNumberOfComments(HttpServletRequest request, String name) {
+    // Get the input from the form.
+    String numCommentString = request.getParameter(name);
+
+    // Convert the input to an int.
+    int numComments;
+    try {
+      numComments = Integer.parseInt(numCommentString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + numCommentString);
+      return -1;
+    }
+
+    return numComments;
   }
 }
