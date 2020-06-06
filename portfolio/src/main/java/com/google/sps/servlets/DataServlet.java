@@ -34,19 +34,19 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
-  private static final String COMMENT = "Comment";
-  private static final String TEXT = "text";
+  private static final String COMMENT_KIND = "Comment";
+  private static final String TEXT_KEY = "text";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT);
+    Query query = new Query(COMMENT_KIND);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
     comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String output = (String) entity.getProperty(TEXT);
+      String output = (String) entity.getProperty(TEXT_KEY);
       comments.add(output);
     }
 
@@ -69,8 +69,8 @@ public class DataServlet extends HttpServlet {
     comments.add(json);
 
     // Store the comment.
-    Entity commentEntity = new Entity(COMMENT);
-    commentEntity.setProperty(TEXT, input);
+    Entity commentEntity = new Entity(COMMENT_KIND);
+    commentEntity.setProperty(TEXT_KEY, input);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
