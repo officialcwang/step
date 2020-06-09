@@ -54,9 +54,9 @@ li:not(:last-child) {
 }
 
 #select-comments {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 #total-comments-text {
-    display: inline-block;
+  display: inline-block;
 }

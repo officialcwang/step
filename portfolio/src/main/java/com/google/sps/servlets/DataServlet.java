@@ -49,16 +49,11 @@ public class DataServlet extends HttpServlet {
     int numComments = getNumberOfComments(request, "comments-number");
 
     comments = new ArrayList<>();
-    /*
     Iterator commentsIterator = results.asIterator();
 
     // Accept either all comments or as many as specified in numComments.
     for (int i = 0; i < numComments && commentsIterator.hasNext(); i++) {
       Entity entity = (Entity) commentsIterator.next();
-      String output = (String) entity.getProperty(TEXT);
-      comments.add(output);
-    } */
-    for (Entity entity : results.asIterable()) {
       String output = (String) entity.getProperty(TEXT_KEY);
       comments.add(output);
     }

@@ -18,15 +18,14 @@
           <button type="submit">Say hello</button>
         </div>
         <div id="select-comments">
-          View 
+          View
           <select name="comments-number" id="comments-number" onchange="addComment()">
+            <!-- TODO(carolynlwang): Create more flexible options for the number of comments to display. -->
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
+            <!-- TODO(carolynlwang): Display total number of comments, like "View 5 of 25 total comments." -->
           </select>
-          of all 
-          <div id="total-comments-text"></div>
-           comments.
         </div>
       </form>
       <div id="comment-header">
