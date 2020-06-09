@@ -50,9 +50,19 @@ function createListElement(text) {
 /** Checks if the user has inputted any text upon clicking submit. */
 function isInputEmpty() {
   const comment = document.getElementById('text-input').value;
-  if (comment == null || comment === '') {
+  if (!comment || comment === '' || isInputOnlySpaces(comment)) {
     alert('Please enter a valid comment.');
     return false;
+  }
+  return true;
+}
+
+/** Checks if the user has inputted only spaces. */
+function isInputOnlySpaces(input) {
+  for (const character of input) {
+    if (character != ' ') {
+      return false;
+    }
   }
   return true;
 }
