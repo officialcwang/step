@@ -20,10 +20,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
@@ -49,11 +49,8 @@ public class DataServlet extends HttpServlet {
     int numComments = getNumberOfComments(request, "comments-number");
 
     comments = new ArrayList<>();
-    Iterator commentsIterator = results.asIterator();
 
-    // Accept either all comments or as many as specified in numComments.
-    for (int i = 0; i < numComments && commentsIterator.hasNext(); i++) {
-      Entity entity = (Entity) commentsIterator.next();
+    for (Entity entity : Iterables.limit(results.asIterable(), numComments)) {
       String output = (String) entity.getProperty(TEXT_KEY);
       comments.add(output);
     }
@@ -71,7 +68,6 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     Optional<String> textOptional = getParameter(request, "text-input");
     String input = textOptional.orElse("");
-    long timestamp = System.currentTimeMillis();
 
     // Respond with the result.
     String json = gson.toJson(input);
@@ -80,7 +76,7 @@ public class DataServlet extends HttpServlet {
     // Store the comment.
     Entity commentEntity = new Entity(COMMENT_KIND);
     commentEntity.setProperty(TEXT_KEY, input);
-    commentEntity.setProperty(TIMESTAMP_KIND, timestamp);
+    commentEntity.setProperty(TIMESTAMP_KIND, System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
@@ -98,7 +94,7 @@ public class DataServlet extends HttpServlet {
     return Optional.ofNullable(request.getParameter(name));
   }
 
-  /** Returns the choice entered by the player, or -1 if the choice was invalid. */
+  /** Returns the choice entered by the user, or -1 if the choice was invalid. */
   private int getNumberOfComments(HttpServletRequest request, String name) {
     // Get the input from the form.
     String numCommentString = request.getParameter(name);
