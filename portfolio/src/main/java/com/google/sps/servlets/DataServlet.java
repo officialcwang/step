@@ -83,7 +83,7 @@ public class DataServlet extends HttpServlet {
     // Redirect back to the proper container.
     response.setContentType("text/html;");
     response.getWriter().println(json);
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/professional.html");
   }
 
   /**

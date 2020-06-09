@@ -5,33 +5,11 @@
     <title>Portfolio</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body onload="addComment()">
+  <body>
     <div id="content">
       <h1 class="header">Portfolio</h1>
       <p class="description">This is Carolyn Wang.</p>
       <img src="/images/3d.jpeg" alt="3d-glasses" class="photo" />
-      <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
-        <p>Enter a comment:</p>
-        <textarea name="text-input" id="text-input"></textarea>
-        <br />
-        <div class="button">
-          <button type="submit">Say hello</button>
-        </div>
-        <div id="select-comments">
-          View
-          <select name="comments-number" id="comments-number" onchange="addComment()">
-            <!-- TODO(carolynlwang): Create more flexible options for the number of comments to display. -->
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <!-- TODO(carolynlwang): Display total number of comments, like "View 5 of 25 total comments." -->
-          </select>
-        </div>
-      </form>
-      <div id="comment-header">
-        <p>You have said:</p>
-      </div>
-      <div id="comments-container"></div>
       <div w3-include-html="navigation.html"></div>
     </div>
     <script src="script.js"></script>
