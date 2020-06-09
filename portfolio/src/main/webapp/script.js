@@ -50,19 +50,12 @@ function createListElement(text) {
 /** Checks if the user has inputted any text upon clicking submit. */
 function isInputEmpty() {
   const comment = document.getElementById('text-input').value;
-  if (!comment || comment === '' || isInputOnlySpaces(comment)) {
+
+  // If the comment is null, undefined, empty, or does not contain at least one
+  // alphanumeric symbol.
+  if (!comment || comment === '' || comment.match(/^[^a-z0-9]+$/i)) {
     alert('Please enter a valid comment.');
     return false;
-  }
-  return true;
-}
-
-/** Checks if the user has inputted only spaces. */
-function isInputOnlySpaces(input) {
-  for (const character of input) {
-    if (character != ' ') {
-      return false;
-    }
   }
   return true;
 }
