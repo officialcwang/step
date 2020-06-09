@@ -36,25 +36,30 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
-  private static final String COMMENT = "Comment";
-  private static final String TEXT = "text";
-  private static final String TIMESTAMP = "timestamp";
+  private static final String COMMENT_KIND = "Comment";
+  private static final String TEXT_KEY = "text";
+  private static final String TIMESTAMP_KIND = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT).addSort(TIMESTAMP, SortDirection.DESCENDING);
+    Query query = new Query(COMMENT_KIND).addSort(TIMESTAMP_KIND, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
     int numComments = getNumberOfComments(request, "comments-number");
 
     comments = new ArrayList<>();
+    /*
     Iterator commentsIterator = results.asIterator();
 
     // Accept either all comments or as many as specified in numComments.
     for (int i = 0; i < numComments && commentsIterator.hasNext(); i++) {
       Entity entity = (Entity) commentsIterator.next();
       String output = (String) entity.getProperty(TEXT);
+      comments.add(output);
+    } */
+    for (Entity entity : results.asIterable()) {
+      String output = (String) entity.getProperty(TEXT_KEY);
       comments.add(output);
     }
 
@@ -78,9 +83,9 @@ public class DataServlet extends HttpServlet {
     comments.add(json);
 
     // Store the comment.
-    Entity commentEntity = new Entity(COMMENT);
-    commentEntity.setProperty(TEXT, input);
-    commentEntity.setProperty(TIMESTAMP, timestamp);
+    Entity commentEntity = new Entity(COMMENT_KIND);
+    commentEntity.setProperty(TEXT_KEY, input);
+    commentEntity.setProperty(TIMESTAMP_KIND, timestamp);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 

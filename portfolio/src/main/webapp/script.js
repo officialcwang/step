@@ -56,7 +56,10 @@ function createListElement(text) {
 /** Checks if the user has inputted any text upon clicking submit. */
 function isInputEmpty() {
   const comment = document.getElementById('text-input').value;
-  if (comment == null || comment === '') {
+
+  // If the comment is null, undefined, empty, or does not contain at least one
+  // alphanumeric symbol.
+  if (!comment || comment === '' || comment.match(/^[^a-z0-9]+$/i)) {
     alert('Please enter a valid comment.');
     return false;
   }
