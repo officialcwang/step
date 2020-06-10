@@ -96,18 +96,7 @@ public class DataServlet extends HttpServlet {
 
   /** Returns the choice entered by the user, or -1 if the choice was invalid. */
   private int getNumberOfComments(HttpServletRequest request, String name) {
-    // Get the input from the form.
-    String numCommentString = request.getParameter(name);
-
     // Convert the input to an int.
-    int numComments;
-    try {
-      numComments = Integer.parseInt(numCommentString);
-    } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + numCommentString);
-      return -1;
-    }
-
-    return numComments;
+    return Integer.parseInt(request.getParameter(name));
   }
 }
