@@ -88,13 +88,13 @@ public class DataServlet extends HttpServlet {
 
   /**
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
   private Optional<String> getParameter(HttpServletRequest request, String name) {
     return Optional.ofNullable(request.getParameter(name));
   }
 
-  /** Returns the choice entered by the user, or -1 if the choice was invalid. */
+  /** Returns the number of comments to display, as selected by the user. */
   private int getNumberOfComments(HttpServletRequest request, String name) {
     // Convert the input to an int.
     return Integer.parseInt(request.getParameter(name));
