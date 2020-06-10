@@ -36,10 +36,11 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
-  
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(Constants.COMMENT_KIND).addSort(Constants.TIMESTAMP_KIND, SortDirection.DESCENDING);
+    Query query = new Query(Constants.COMMENT_KIND)
+                      .addSort(Constants.TIMESTAMP_KIND, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
