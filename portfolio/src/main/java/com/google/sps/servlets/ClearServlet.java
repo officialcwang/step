@@ -20,14 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/delete-data")
 public class ClearServlet extends HttpServlet {
-  private static final String COMMENT_KIND = "Comment";
-
   /**
    * Clear the comments.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_KIND);
+    Query query = new Query(Constants.COMMENT_KIND);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 

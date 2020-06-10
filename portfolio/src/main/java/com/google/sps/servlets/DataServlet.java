@@ -31,18 +31,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private List<String> comments;
   private Gson gson = new Gson();
-  private static final String COMMENT_KIND = "Comment";
-  private static final String TEXT_KEY = "text";
-  private static final String TIMESTAMP_KIND = "timestamp";
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_KIND).addSort(TIMESTAMP_KIND, SortDirection.DESCENDING);
+    Query query = new Query(Constants.COMMENT_KIND).addSort(Constants.TIMESTAMP_KIND, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -51,7 +48,7 @@ public class DataServlet extends HttpServlet {
     comments = new ArrayList<>();
 
     for (Entity entity : Iterables.limit(results.asIterable(), numComments)) {
-      String output = (String) entity.getProperty(TEXT_KEY);
+      String output = (String) entity.getProperty(Constants.TEXT_KEY);
       comments.add(output);
     }
 
@@ -74,9 +71,9 @@ public class DataServlet extends HttpServlet {
     comments.add(json);
 
     // Store the comment.
-    Entity commentEntity = new Entity(COMMENT_KIND);
-    commentEntity.setProperty(TEXT_KEY, input);
-    commentEntity.setProperty(TIMESTAMP_KIND, System.currentTimeMillis());
+    Entity commentEntity = new Entity(Constants.COMMENT_KIND);
+    commentEntity.setProperty(Constants.TEXT_KEY, input);
+    commentEntity.setProperty(Constants.TIMESTAMP_KIND, System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
