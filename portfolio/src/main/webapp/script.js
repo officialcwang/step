@@ -45,6 +45,13 @@ async function addComment() {
       });
 }
 
+/** Clears comments from the datastore. */
+function clearComments() { 
+  fetch('/delete-data', {method: 'POST'}).then(() => {
+    addComment();
+  });
+}
+
 /** Creates an <li> element containing text. */
 function createListElement(text) {
   const liElement = document.createElement('li');

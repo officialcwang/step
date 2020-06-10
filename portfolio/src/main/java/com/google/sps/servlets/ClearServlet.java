@@ -40,3 +40,4 @@ public class ClearServlet extends HttpServlet {
     response.getWriter().println();
     response.sendRedirect("/professional.html");
   }
+}
