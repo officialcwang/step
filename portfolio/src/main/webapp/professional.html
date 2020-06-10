@@ -21,7 +21,7 @@
         <textarea name="text-input" id="text-input"></textarea>
         <br />
         <div class="button">
-          <button type="submit">Say hello</button>
+          <button type="submit">Say hello.</button>
         </div>
         <div id="select-comments">
           View
@@ -32,6 +32,11 @@
             <option value="20">20</option>
             <!-- TODO(carolynlwang): Display total number of comments, like "View 5 of 25 total comments." -->
           </select>
+        </div>
+      </form>
+      <form action="/delete-data" method="post">
+        <div class="button">
+          <button type="submit" onclick="clearComments()">Clear comments.</button>
         </div>
       </form>
       <div id="comment-header">

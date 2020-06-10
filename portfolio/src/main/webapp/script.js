@@ -13,6 +13,7 @@
 // limitations under the License.
 
 /* exported addComment */
+/* exported clearComments */
 /* exported isInputEmpty */
 /* exported addRandomQuote */
 /* exported randomizeImage */
@@ -43,6 +44,13 @@ async function addComment() {
           commentListElement.appendChild(createListElement(message));
         }
       });
+}
+
+/** Clears comments from the datastore. */
+function clearComments() {
+  fetch('/delete-data', {method: 'POST'}).then(() => {
+    addComment();
+  });
 }
 
 /** Creates an <li> element containing text. */
