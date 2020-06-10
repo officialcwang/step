@@ -38,5 +38,5 @@ public class ClearServlet extends HttpServlet {
     // Redirect back to the proper container.
     response.setContentType("text/html;");
     response.getWriter().println();
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/professional.html");
   }
