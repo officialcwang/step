@@ -30,6 +30,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.sps.data.Constants;
 
 /** Servlet that returns some example content. */
 @WebServlet("/data")
@@ -66,7 +67,7 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     Optional<String> textOptional = getParameter(request, "text-input");
     String input = textOptional.orElse("");
-
+    
     // Respond with the result.
     String json = gson.toJson(input);
     comments.add(json);
