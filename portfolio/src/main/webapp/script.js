@@ -22,22 +22,27 @@
  * Fetches comments from the server and adds them to the page.
  */
 async function addComment() {
-  fetch('/data').then((response) => response.json()).then((comments) => {
-    const commentHeader = document.getElementById('comment-header');
+  const numComments = document.getElementById('comments-number').value;
+  fetch('/data?comments-number=' + numComments)
+      .then((response) => response.json())
+      .then((comments) => {
+        const commentHeader = document.getElementById('comment-header');
 
-    // Check if there are comments.
-    if (comments.length > 0) {
-      // Make the header of the comments section visible.
-      commentHeader.style.display = 'block';
-    }
+        // Check if there are comments.
+        if (comments.length) {
+          // Make the header of the comments section visible.
+          commentHeader.style.display = 'block';
+        }
 
-    // Create a list of comments.
-    const commentListElement = document.getElementById('comments-container');
-    commentListElement.innerHTML = '';
-    for (const message of comments) {
-      commentListElement.appendChild(createListElement(message));
-    }
-  });
+        // Create a list of comments.
+        const commentListElement =
+            document.getElementById('comments-container');
+        commentListElement.innerHTML = '';
+
+        for (const message of comments) {
+          commentListElement.appendChild(createListElement(message));
+        }
+      });
 }
 
 /** Creates an <li> element containing text. */

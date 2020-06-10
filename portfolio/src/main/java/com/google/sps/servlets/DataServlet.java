@@ -19,6 +19,8 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,16 +38,19 @@ public class DataServlet extends HttpServlet {
   private Gson gson = new Gson();
   private static final String COMMENT_KIND = "Comment";
   private static final String TEXT_KEY = "text";
+  private static final String TIMESTAMP_KIND = "timestamp";
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query(COMMENT_KIND);
+    Query query = new Query(COMMENT_KIND).addSort(TIMESTAMP_KIND, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    int numComments = getNumberOfComments(request, "comments-number");
 
     comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+
+    for (Entity entity : Iterables.limit(results.asIterable(), numComments)) {
       String output = (String) entity.getProperty(TEXT_KEY);
       comments.add(output);
     }
@@ -71,20 +76,27 @@ public class DataServlet extends HttpServlet {
     // Store the comment.
     Entity commentEntity = new Entity(COMMENT_KIND);
     commentEntity.setProperty(TEXT_KEY, input);
+    commentEntity.setProperty(TIMESTAMP_KIND, System.currentTimeMillis());
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
     // Redirect back to the proper container.
     response.setContentType("text/html;");
     response.getWriter().println(json);
-    response.sendRedirect("/index.html");
+    response.sendRedirect("/professional.html");
   }
 
   /**
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
   private Optional<String> getParameter(HttpServletRequest request, String name) {
     return Optional.ofNullable(request.getParameter(name));
+  }
+
+  /** Returns the number of comments to display, as selected by the user. */
+  private int getNumberOfComments(HttpServletRequest request, String name) {
+    // Convert the input to an int.
+    return Integer.parseInt(request.getParameter(name));
   }
 }
