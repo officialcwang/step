@@ -29,7 +29,7 @@ async function addComment() {
         const commentHeader = document.getElementById('comment-header');
 
         // Check if there are comments.
-        if (comments.length > 0) {
+        if (comments.length) {
           // Make the header of the comments section visible.
           commentHeader.style.display = 'block';
         }
