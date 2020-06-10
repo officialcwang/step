@@ -13,6 +13,7 @@
 // limitations under the License.
 
 /* exported addComment */
+/* exported clearComments */
 /* exported isInputEmpty */
 /* exported addRandomQuote */
 /* exported randomizeImage */
@@ -46,7 +47,7 @@ async function addComment() {
 }
 
 /** Clears comments from the datastore. */
-function clearComments() { 
+function clearComments() {
   fetch('/delete-data', {method: 'POST'}).then(() => {
     addComment();
   });
