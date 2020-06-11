@@ -61,6 +61,8 @@ async function checkLogin() {
     if (user.userInfo) {
       loginLink.appendChild(createLinkElement(user.link, 'Log-out.'));
       comments.style.display = 'block';
+      const emailAddress = document.getElementById('email-address');
+      emailAddress.innerText = 'Welcome, ' + user.userInfo.email;
       addComment();
     } else {
       loginLink.appendChild(createLinkElement(user.link, 'Log-in.'));
