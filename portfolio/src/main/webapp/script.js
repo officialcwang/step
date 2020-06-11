@@ -52,10 +52,6 @@ async function addComment() {
  */
 async function checkLogin() {
   fetch('/login').then((response) => response.json()).then((user) => {
-    console.log('we have a user');
-    console.log(user);
-    console.log(user.link);
-
     const loginLink = document.getElementById('login-link');
     loginLink.innerHTML = '';
 

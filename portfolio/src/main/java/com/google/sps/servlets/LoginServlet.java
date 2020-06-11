@@ -18,13 +18,8 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
     UserService userService = UserServiceFactory.getUserService();
-    String link = "";
-
-    if (userService.isUserLoggedIn()) {
-      link = userService.createLogoutURL("/professional.html");
-    } else {
-      link = userService.createLoginURL("/professional.html");
-    }
+    String link = (userService.isUserLoggedIn()) ? userService.createLogoutURL("/professional.html")
+                                                 : userService.createLoginURL("/professional.html");
 
     LoginInfo loginInfo = new LoginInfo(link, userService.getCurrentUser());
     String json = gson.toJson(loginInfo);
