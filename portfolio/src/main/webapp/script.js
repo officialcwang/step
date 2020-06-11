@@ -28,9 +28,14 @@ async function addComment() {
   fetch('/data?comments-number=' + numComments)
       .then((response) => response.json())
       .then((comments) => {
+        console.log('these are the comments: ');
+        console.log(comments);
+
         const commentHeader = document.getElementById('comment-header');
 
         // Check if there are comments.
+        // TODO(carolynlwang): Fix a bug that occasionally pops up ('Cannot read
+        // property length of undefined').
         if (comments.length) {
           // Make the header of the comments section visible.
           commentHeader.style.display = 'block';
@@ -42,7 +47,8 @@ async function addComment() {
         commentListElement.innerHTML = '';
 
         for (const message of comments) {
-          commentListElement.appendChild(createListElement(message));
+          commentListElement.appendChild(
+              createListElement(message.text, message.email));
         }
       });
 }
@@ -87,10 +93,10 @@ function createLinkElement(link, text) {
   return linkElement;
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
+/** Creates an <li> element containing the comment and the user's email. */
+function createListElement(text, email) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerText = '\"' + text + '\" [by ' + email + ']';
   return liElement;
 }
 

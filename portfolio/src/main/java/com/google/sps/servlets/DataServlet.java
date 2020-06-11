@@ -20,8 +20,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
+import com.google.sps.data.Comment;
 import com.google.sps.data.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,13 +37,13 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private List<String> comments;
+  private List<Comment> comments;
   private Gson gson = new Gson();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query(Constants.COMMENT_KIND)
-                      .addSort(Constants.TIMESTAMP_KIND, SortDirection.DESCENDING);
+                      .addSort(Constants.TIMESTAMP_KEY, SortDirection.DESCENDING);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
@@ -50,8 +52,9 @@ public class DataServlet extends HttpServlet {
     comments = new ArrayList<>();
 
     for (Entity entity : Iterables.limit(results.asIterable(), numComments)) {
-      String output = (String) entity.getProperty(Constants.TEXT_KEY);
-      comments.add(output);
+      String text = (String) entity.getProperty(Constants.TEXT_KEY);
+      String email = (String) entity.getProperty(Constants.EMAIL_KEY);
+      comments.add(new Comment(text, email));
     }
 
     String json = gson.toJson(comments);
@@ -67,15 +70,17 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form.
     Optional<String> textOptional = getParameter(request, "text-input");
     String input = textOptional.orElse("");
+    String email = UserServiceFactory.getUserService().getCurrentUser().getEmail();
 
     // Respond with the result.
     String json = gson.toJson(input);
-    comments.add(json);
+    comments.add(new Comment(input, email));
 
     // Store the comment.
     Entity commentEntity = new Entity(Constants.COMMENT_KIND);
     commentEntity.setProperty(Constants.TEXT_KEY, input);
-    commentEntity.setProperty(Constants.TIMESTAMP_KIND, System.currentTimeMillis());
+    commentEntity.setProperty(Constants.TIMESTAMP_KEY, System.currentTimeMillis());
+    commentEntity.setProperty(Constants.EMAIL_KEY, email);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
