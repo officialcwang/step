@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.Gson;
+import com.google.sps.data.LoginInfo;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,16 +18,16 @@ public class LoginServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
     UserService userService = UserServiceFactory.getUserService();
+    String link = "";
 
     if (userService.isUserLoggedIn()) {
-      String logoutUrl = userService.createLogoutURL("/login");
-      response.getWriter().println("<p>Log-out <a href=\"" + logoutUrl + "\">here</a>.</p>");
+      link = userService.createLogoutURL("/professional.html");
     } else {
-      String loginUrl = userService.createLoginURL("/login");
-      response.getWriter().println("<p>Log-in <a href=\"" + loginUrl + "\">here</a>.</p>");
+      link = userService.createLoginURL("/professional.html");
     }
 
-    String json = gson.toJson(userService.getCurrentUser());
+    LoginInfo loginInfo = new LoginInfo(link, userService.getCurrentUser());
+    String json = gson.toJson(loginInfo);
     response.getWriter().println(json);
   }
 }
