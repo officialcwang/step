@@ -96,7 +96,7 @@ function createLinkElement(link, text) {
 /** Creates an <li> element containing the comment and the user's email. */
 function createListElement(text, email) {
   const liElement = document.createElement('li');
-  liElement.innerText = '\"' + text + '\" [by ' + email + ']';
+  liElement.innerText = '"' + text + '" [by ' + email + ']';
   return liElement;
 }
 
