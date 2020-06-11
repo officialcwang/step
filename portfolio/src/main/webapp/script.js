@@ -14,6 +14,7 @@
 
 /* exported addComment */
 /* exported clearComments */
+/* exported checkLogin */
 /* exported isInputEmpty */
 /* exported addRandomQuote */
 /* exported randomizeImage */
@@ -46,11 +47,46 @@ async function addComment() {
       });
 }
 
+/**
+ * Fetches the user's login status and changes the view of comments accordingly.
+ */
+async function checkLogin() {
+  fetch('/login').then((response) => response.json()).then((user) => {
+    console.log('we have a user');
+    console.log(user);
+    console.log(user.link);
+
+    const loginLink = document.getElementById('login-link');
+    loginLink.innerHTML = '';
+
+    const comments = document.getElementById('comment-section');
+
+    // If the user is not logged in, the UserInfo obtained will be null.
+    if (user.userInfo) {
+      loginLink.appendChild(createLinkElement(user.link, 'Log-out.'));
+      comments.style.display = 'block';
+      addComment();
+    } else {
+      loginLink.appendChild(createLinkElement(user.link, 'Log-in.'));
+      comments.style.display = 'none';
+    }
+  });
+}
+
+
 /** Clears comments from the datastore. */
 function clearComments() {
   fetch('/delete-data', {method: 'POST'}).then(() => {
     addComment();
   });
+}
+
+/** Creates an <a> element containing text and a link.*/
+function createLinkElement(link, text) {
+  const linkElement = document.createElement('a');
+  linkElement.setAttribute('href', link);
+  linkElement.innerText = text;
+  return linkElement;
 }
 
 /** Creates an <li> element containing text. */

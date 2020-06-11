@@ -60,3 +60,11 @@ li:not(:last-child) {
 #total-comments-text {
   display: inline-block;
 }
+
+#comment-section {
+  display: none;
+}
+
+#login-link {
+  margin-top: 10px;
+}
