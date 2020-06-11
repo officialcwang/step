@@ -2,9 +2,8 @@ package com.google.sps.data;
 
 import com.google.appengine.api.users.User;
 
-/** Class containing server statistics. */
+/** Class containing a comment and its pertinent information. */
 public final class Comment {
-  /** Log-in link if user is logged out, log-out link if the user is logged in.*/
   private String text;
   private String email;
 

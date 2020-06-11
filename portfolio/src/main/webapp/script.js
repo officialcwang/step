@@ -28,14 +28,9 @@ async function addComment() {
   fetch('/data?comments-number=' + numComments)
       .then((response) => response.json())
       .then((comments) => {
-        console.log('these are the comments: ');
-        console.log(comments);
-
         const commentHeader = document.getElementById('comment-header');
 
         // Check if there are comments.
-        // TODO(carolynlwang): Fix a bug that occasionally pops up ('Cannot read
-        // property length of undefined').
         if (comments.length) {
           // Make the header of the comments section visible.
           commentHeader.style.display = 'block';
