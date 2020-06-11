@@ -1,4 +1,4 @@
-package com.google.sps.servlets;
+package com.google.sps.data;
 
 /** File for shared constants. */
 public final class Constants {

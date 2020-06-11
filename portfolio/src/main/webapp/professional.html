@@ -5,7 +5,7 @@
     <title>Contact</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body onload="addComment()">
+  <body onload="checkLogin()">
     <div id="content">
       <h1 class="header">Contact</h1>
       <p>
@@ -16,33 +16,36 @@
         <a href="https://www.letterboxd.com/barkers/">Letterboxd</a>
       </p>
       <img src="/images/small.jpg" alt="baby-photo" class="photo" />
-      <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
-        <p>Enter a comment:</p>
-        <textarea name="text-input" id="text-input"></textarea>
-        <br />
-        <div class="button">
-          <button type="submit">Say hello.</button>
+      <div id="login-link"></div>
+      <div id="comment-section">
+        <form id="form" action="/data" method="post" onsubmit="return isInputEmpty()">
+          <p>Enter a comment:</p>
+          <textarea name="text-input" id="text-input"></textarea>
+          <br />
+          <div class="button">
+            <button type="submit">Say hello.</button>
+          </div>
+          <div id="select-comments">
+            View
+            <select name="comments-number" id="comments-number" onchange="addComment()">
+              <!-- TODO(carolynlwang): Create more flexible options for the number of comments to display. -->
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <!-- TODO(carolynlwang): Display total number of comments, like "View 5 of 25 total comments." -->
+            </select>
+          </div>
+        </form>
+        <form action="/delete-data" method="post">
+          <div class="button">
+            <button type="submit" onclick="clearComments()">Clear comments.</button>
+          </div>
+        </form>
+        <div id="comment-header">
+          <p>You have said:</p>
         </div>
-        <div id="select-comments">
-          View
-          <select name="comments-number" id="comments-number" onchange="addComment()">
-            <!-- TODO(carolynlwang): Create more flexible options for the number of comments to display. -->
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <!-- TODO(carolynlwang): Display total number of comments, like "View 5 of 25 total comments." -->
-          </select>
-        </div>
-      </form>
-      <form action="/delete-data" method="post">
-        <div class="button">
-          <button type="submit" onclick="clearComments()">Clear comments.</button>
-        </div>
-      </form>
-      <div id="comment-header">
-        <p>You have said:</p>
+        <div id="comments-container"></div>
       </div>
-      <div id="comments-container"></div>
       <div w3-include-html="navigation.html"></div>
     </div>
     <script src="script.js"></script>

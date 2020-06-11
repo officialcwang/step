@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import com.google.sps.data.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that deletes comments. */
 @WebServlet("/delete-data")
 public class ClearServlet extends HttpServlet {
   /**
