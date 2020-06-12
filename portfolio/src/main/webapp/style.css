@@ -68,3 +68,7 @@ li:not(:last-child) {
 #login-link {
   margin-top: 10px;
 }
+
+#email-address {
+  margin-top: 10px;
+}

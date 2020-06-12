@@ -42,7 +42,8 @@ async function addComment() {
         commentListElement.innerHTML = '';
 
         for (const message of comments) {
-          commentListElement.appendChild(createListElement(message));
+          commentListElement.appendChild(
+              createListElement(message.text, message.email));
         }
       });
 }
@@ -61,6 +62,8 @@ async function checkLogin() {
     if (user.userInfo) {
       loginLink.appendChild(createLinkElement(user.link, 'Log-out.'));
       comments.style.display = 'block';
+      const emailAddress = document.getElementById('email-address');
+      emailAddress.innerText = 'Welcome, ' + user.userInfo.email;
       addComment();
     } else {
       loginLink.appendChild(createLinkElement(user.link, 'Log-in.'));
@@ -85,10 +88,10 @@ function createLinkElement(link, text) {
   return linkElement;
 }
 
-/** Creates an <li> element containing text. */
-function createListElement(text) {
+/** Creates an <li> element containing the comment and the user's email. */
+function createListElement(text, email) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerText = '"' + text + '" [by ' + email + ']';
   return liElement;
 }
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Servlet that returns login information. */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
   private Gson gson = new Gson();
