@@ -25,8 +25,6 @@ public final class FindMeetingQuery {
    * finds the times when the meeting could happen that day.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    int startTime = TimeRange.START_OF_DAY;
-
     ArrayList<TimeRange> busyTimes = new ArrayList<>();
     for (Event event : events) {
       for (String attendee : request.getAttendees()) {
@@ -39,6 +37,9 @@ public final class FindMeetingQuery {
 
     ArrayList<TimeRange> freeTimes = new ArrayList<>();
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
+    
+    // When the first meeting starts.
+    int startTime = TimeRange.START_OF_DAY;
 
     for (TimeRange busy : busyTimes) {
       if (busy.start() - startTime >= request.getDuration()) {
@@ -49,9 +50,8 @@ public final class FindMeetingQuery {
       }
     }
 
-    int endOfDay = TimeRange.END_OF_DAY;
-    if (endOfDay - startTime >= request.getDuration()) {
-      freeTimes.add(TimeRange.fromStartEnd(startTime, endOfDay, true));
+    if (TimeRange.END_OF_DAY - startTime >= request.getDuration()) {
+      freeTimes.add(TimeRange.fromStartEnd(startTime, TimeRange.END_OF_DAY, true));
     }
 
     return freeTimes;
