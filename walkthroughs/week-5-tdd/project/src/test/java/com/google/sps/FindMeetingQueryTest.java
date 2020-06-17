@@ -285,6 +285,7 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_B)));
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_30_MINUTES);
+    request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
@@ -381,6 +382,8 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_B)));
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_60_MINUTES);
+    request.addOptionalAttendee(PERSON_A);
+    request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected =
@@ -405,6 +408,8 @@ public final class FindMeetingQueryTest {
             Arrays.asList(PERSON_B)));
 
     MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_60_MINUTES);
+    request.addOptionalAttendee(PERSON_A);
+    request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
     Collection<TimeRange> expected = Arrays.asList();
