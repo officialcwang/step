@@ -19,15 +19,18 @@ import java.util.Collection;
 import java.util.Collections;
 
 public final class FindMeetingQuery {
-
   /**
    * Given the meeting information,
    * finds the times when the meeting could happen that day.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    int startTime = 0;
+    int startTime = TimeRange.START_OF_DAY;
 
+    // The busy times for mandatory attendees.
     ArrayList<TimeRange> busyTimes = new ArrayList<>();
+    // The busy times for optional attendees.
+    ArrayList<TimeRange> busyTimesOptional = new ArrayList<>();
+
     for (Event event : events) {
       for (String attendee : request.getAttendees()) {
         if (event.getAttendees().contains(attendee)) {
@@ -35,10 +38,18 @@ public final class FindMeetingQuery {
           break;
         }
       }
+
+      for (String optionalAttendee : request.getOptionalAttendees()) {
+        if (event.getOptionalAttendees().contains(optionalAttendee)) {
+          busyTimesOptional.add(event.getWhen());
+          break;
+        }
+      }
     }
 
     ArrayList<TimeRange> freeTimes = new ArrayList<>();
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
+    Collections.sort(busyTimesOptional, TimeRange.ORDER_BY_START);
 
     for (TimeRange busy : busyTimes) {
       if (busy.start() - startTime >= request.getDuration()) {
