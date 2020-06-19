@@ -79,6 +79,12 @@ public final class FindMeetingQuery {
       freeTimes.add(TimeRange.fromStartEnd(startTime, TimeRange.END_OF_DAY, /* inclusive */ true));
     }
 
+    // If there is at least one time where both mandatory
+    // and optional attendees can attend the meeting, return that list.
+    if (freeTimes.size() > 0) {
+      return freeTimes;
+    }
+
     // Repeat the exact same search, but this time find meetings
     // that only mandatory attendees can attend.
     startTime = TimeRange.START_OF_DAY;
@@ -102,12 +108,6 @@ public final class FindMeetingQuery {
         freeTimesMandatory.add(
             TimeRange.fromStartEnd(startTime, TimeRange.END_OF_DAY, /* inclusive */ true));
       }
-    }
-
-    // If there is at least one time where both mandatory
-    // and optional attendees can attend the meeting, return that list.
-    if (freeTimes.size() > 0) {
-      return freeTimes;
     }
 
     return freeTimesMandatory;
