@@ -189,7 +189,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void overlappingEvents() {
-    // Have an event for each person, but have their events overlap. We should only see two options.
+    // Have an event for each person, but have their events overlap.
+    // We should only see two options.
     //
     // Events  :       |--A--|
     //                     |--B--|
@@ -215,8 +216,8 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void nestedEvents() {
-    // Have an event for each person, but have one person's event fully contain another's event. We
-    // should see two options.
+    // Have an event for each person, but have one person's event fully contain another's event.
+    // We should see two options.
     //
     // Events  :       |----A----|
     //                   |--B--|
@@ -377,10 +378,10 @@ public final class FindMeetingQueryTest {
     Collection<Event> events = Arrays.asList(
         new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
             Arrays.asList(PERSON_A)),
-        new Event("Event 2", TimeRange.fromStartEnd(TIME_1000AM, TIME_1100AM, true),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_1000AM, TIME_1100AM, false),
             Arrays.asList(PERSON_B)));
 
-    MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_60_MINUTES);
+    MeetingRequest request = new MeetingRequest(Arrays.asList(), DURATION_60_MINUTES);
     request.addOptionalAttendee(PERSON_A);
     request.addOptionalAttendee(PERSON_B);
 
@@ -406,7 +407,7 @@ public final class FindMeetingQueryTest {
         new Event("Event 2", TimeRange.fromStartEnd(TIME_0830AM, TimeRange.END_OF_DAY, true),
             Arrays.asList(PERSON_B)));
 
-    MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A), DURATION_60_MINUTES);
+    MeetingRequest request = new MeetingRequest(Arrays.asList(), DURATION_60_MINUTES);
     request.addOptionalAttendee(PERSON_A);
     request.addOptionalAttendee(PERSON_B);
 
