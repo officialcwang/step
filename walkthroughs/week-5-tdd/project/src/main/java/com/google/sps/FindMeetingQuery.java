@@ -25,7 +25,7 @@ public final class FindMeetingQuery {
    * finds the times when the meeting could happen that day.
    * If one or more time slots exists so that both mandatory
    * and optional attendees can attend, return those time slots.
-   * Otherwise, return the tiem slots that fit just the mandatory attendees.
+   * Otherwise, return the time slots that fit just the mandatory attendees.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     // Create a list of the TimeRanges when all (optional and mandatory)
